@@ -1,0 +1,148 @@
+{% extends "base.html" %}
+
+{% block title %}Forum - CortexAI{% endblock %}
+
+{% block hero %}
+<div class="hero">
+    <div class="container text-center">
+        <h1>Healthcare Professionals Forum</h1>
+        <p class="lead">Collaborate with peers to share insights and improve diagnostic practices</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8">
+        <div class="card mb-4">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h3 class="mb-0">Recent Discussions</h3>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newPostModal">New Post</button>
+            </div>
+            <div class="card-body">
+                {% if posts %}
+                    {% for post in posts %}
+                        <div class="card mb-3">
+                            <div class="card-body">
+                                <h4 class="card-title">{{ post.title }}</h4>
+                                <div class="d-flex justify-content-between mb-2">
+                                    <span class="text-muted">Posted by {{ post.author }}</span>
+                                    <span class="text-muted">{{ post.date }}</span>
+                                </div>
+                                <p class="card-text">{{ post.content }}</p>
+                                <div class="d-flex justify-content-between">
+                                    <button class="btn btn-sm btn-outline-primary">View Discussion</button>
+                                    <div>
+                                        <button class="btn btn-sm btn-outline-secondary me-2">
+                                            <i class="bi bi-hand-thumbs-up"></i> Like
+                                        </button>
+                                        <button class="btn btn-sm btn-outline-secondary">
+                                            <i class="bi bi-bookmark"></i> Save
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="alert alert-info">No discussions yet. Be the first to start a conversation!</div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="card mb-4">
+            <div class="card-header">
+                <h4 class="mb-0">Forum Categories</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Glioma
+                        <span class="badge bg-primary rounded-pill">14</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Meningioma
+                        <span class="badge bg-primary rounded-pill">8</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Pituitary Tumor
+                        <span class="badge bg-primary rounded-pill">6</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Research & Publications
+                        <span class="badge bg-primary rounded-pill">12</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between align-items-center">
+                        Case Studies
+                        <span class="badge bg-primary rounded-pill">9</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h4 class="mb-0">Active Members</h4>
+            </div>
+            <div class="card-body">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">Dr. Sarah Johnson</li>
+                    <li class="list-group-item">Dr. Michael Chen</li>
+                    <li class="list-group-item">Dr. Emily Rodriguez</li>
+                    <li class="list-group-item">Dr. David Kim</li>
+                    <li class="list-group-item">Dr. Lisa Patel</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- New Post Modal -->
+<div class="modal fade" id="newPostModal" tabindex="-1" aria-labelledby="newPostModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="newPostModalLabel">Create New Post</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="mb-3">
+                        <label for="postTitle" class="form-label">Title</label>
+                        <input type="text" class="form-control" id="postTitle" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postCategory" class="form-label">Category</label>
+                        <select class="form-select" id="postCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="glioma">Glioma</option>
+                            <option value="meningioma">Meningioma</option>
+                            <option value="pituitary">Pituitary Tumor</option>
+                            <option value="research">Research & Publications</option>
+                            <option value="case">Case Studies</option>
+                        </select>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postContent" class="form-label">Content</label>
+                        <textarea class="form-control" id="postContent" rows="6" required></textarea>
+                    </div>
+                    <div class="mb-3">
+                        <label for="postAttachment" class="form-label">Attach Files (optional)</label>
+                        <input type="file" class="form-control" id="postAttachment">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary">Post</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+{% endblock %}

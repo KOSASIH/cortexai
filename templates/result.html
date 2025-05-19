@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Classification Results - CortexAI{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-10">
+        <div class="card mb-4">
+            <div class="card-header bg-primary text-white">
+                <h2 class="mb-0">Classification Results</h2>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-5">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Uploaded MRI Scan</h5>
+                            </div>
+                            <div class="card-body text-center">
+                                <img src="{{ url_for('static', filename=image_path) }}" class="img-fluid rounded" alt="MRI Scan">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-7">
+                        <div class="card">
+                            <div class="card-header">
+                                <h5 class="mb-0">Diagnosis</h5>
+                            </div>
+                            <div class="card-body">
+                                <h3 class="text-primary mb-4">Primary Classification: {{ results[0].type }}</h3>
+                                
+                                <h5>Confidence Levels:</h5>
+                                {% for result in results %}
+                                <div class="mb-3">
+                                    <div class="d-flex justify-content-between">
+                                        <span>{{ result.type }}</span>
+                                        <span>{{ (result.confidence * 100) | round(2) }}%</span>
+                                    </div>
+                                    <div class="confidence-bar">
+                                        <div class="confidence-level" style="width: {{ (result.confidence * 100) }}%"></div>
+                                    </div>
+                                </div>
+                                {% endfor %}
+                                
+                                <div class="alert alert-info mt-4">
+                                    <strong>Note:</strong> This is an AI-assisted diagnosis and should be confirmed by a healthcare professional.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="/" class="btn btn-secondary">Upload Another Scan</a>
+                    <a href="/forum" class="btn btn-primary">Discuss in Forum</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

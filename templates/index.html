@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block hero %}
+<div class="hero">
+    <div class="container text-center">
+        <h1>CortexAI Brain Tumor Classification</h1>
+        <p class="lead">Advanced deep learning for accurate brain tumor detection and classification from MRI scans</p>
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <div class="card">
+            <div class="card-body">
+                <h2 class="card-title text-center mb-4">Upload MRI Scan</h2>
+                
+                {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        {% for message in messages %}
+                            <div class="alert alert-danger">{{ message }}</div>
+                        {% endfor %}
+                    {% endif %}
+                {% endwith %}
+                
+                <form action="/upload" method="post" enctype="multipart/form-data" class="text-center">
+                    <div class="mb-4">
+                        <label for="file" class="form-label">Select an MRI scan image (PNG, JPG, JPEG)</label>
+                        <input type="file" class="form-control" id="file" name="file" accept=".png, .jpg, .jpeg" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-lg">Analyze Scan</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h3 class="card-title">Advanced AI</h3>
+                <p class="card-text">Our deep learning models are trained on thousands of MRI scans to provide accurate tumor classification.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h3 class="card-title">Collaborative Platform</h3>
+                <p class="card-text">Connect with healthcare professionals worldwide to share insights and improve diagnostic practices.</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card h-100">
+            <div class="card-body">
+                <h3 class="card-title">Research-Backed</h3>
+                <p class="card-text">Our classification algorithms are based on the latest research in medical imaging and deep learning.</p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
